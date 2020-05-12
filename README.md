@@ -7,6 +7,7 @@ _modified the `.go` from: [blackrez/openweathermap_exporter](https://github.com/
 
 This leverages the code from [Brian Downs](https://github.com/briandowns/openweathermap)  
 
+---
 
 ## Quickstart  
 
@@ -16,33 +17,36 @@ This exporter leverages city_id from openweathermap.org for better accuracy -
 The IDs can be found **[here](http://bulk.openweathermap.org/sample/)**  
 
 `.env`
-```
+```sh
+
 OWM_PORT=:2112
 OWM_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 OWM_LOCATION=4259418
+
 ```
+
 **Clone this repo**  
 
 **Add the scraper in prometheus**  
 
-```
+```yml
+
 scrape_configs:
   - job_name: 'weather'
-
-    # Scrape is configured for free usage.
     scrape_interval: 60s
-
-    # Port is not yet configurable
+    # Port is configurable
     static_configs:
-      - targets: ['localhost:2112']
+      - targets: ['openweathermap:2112']
+      
 ```
 
 **Spin up the docker image**  
 `docker build . -t openweathermap_exporter --force-rm`  
   * `--force-rm` tells docker to get rid of intermediate builds in the multi-stage build process  
 
+---
 
-## With Docker-Compose
+## or - Spin up with Docker-Compose
 
 ```yml
 
